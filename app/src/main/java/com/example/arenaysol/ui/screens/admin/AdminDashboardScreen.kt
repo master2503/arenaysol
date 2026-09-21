@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.arenaysol.core.utils.NetworkUtils
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -18,13 +19,21 @@ fun AdminDashboardScreen(
 ) {
     val products by viewModel.products.collectAsState()
     var showAddDialog by remember { mutableStateOf(false) }
+    val localIp = remember { NetworkUtils.getLocalIpAddress() ?: "Desconocida" }
 
     LaunchedEffect(Unit) {
         viewModel.startServer()
     }
 
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Panel de Administración") }) },
+        topBar = { 
+            TopAppBar(
+                title = { Text("Panel de Administración") },
+                actions = {
+                    Text("IP: $localIp", modifier = Modifier.padding(end = 16.dp), style = MaterialTheme.typography.bodySmall)
+                }
+            ) 
+        },
         floatingActionButton = {
             FloatingActionButton(onClick = { showAddDialog = true }) {
                 Icon(Icons.Default.Add, contentDescription = "Añadir Producto")

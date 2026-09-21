@@ -8,6 +8,7 @@ import com.example.arenaysol.data.local.entity.ProductEntity
 import com.example.arenaysol.data.model.Order
 import com.example.arenaysol.data.model.OrderItem
 import com.example.arenaysol.data.model.Product
+import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -93,6 +94,18 @@ class KtorServer @Inject constructor(
                         e.printStackTrace()
                     } finally {
                         wsSessions -= this
+                    }
+                }
+                post("/orders/status") {
+                    val update = call.receive<Map<String, String>>()
+                    val orderId = update["orderId"]
+                    val status = update["status"]
+                    if (orderId != null && status != null) {
+                        orderDao.updateOrderStatus(orderId, status)
+                        broadcastUpdate("orders_updated")
+                        call.respond(mapOf("status" to "ok"))
+                    } else {
+                        call.respond(HttpStatusCode.BadRequest)
                     }
                 }
             }

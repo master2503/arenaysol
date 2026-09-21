@@ -7,5 +7,6 @@ enum class UserRole {
     ADMIN,
     WAITER,
     KITCHEN,
-    DOORMAN
+    DOORMAN,
+    CASHIER
 }

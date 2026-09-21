@@ -14,6 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.arenaysol.ui.navigation.NavRoutes
 import com.example.arenaysol.ui.screens.role.RoleSelectionScreen
 import com.example.arenaysol.data.model.UserRole
+import com.example.arenaysol.ui.screens.cashier.CashierScreen
 import com.example.arenaysol.ui.theme.ArenaysolTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,6 +39,7 @@ class MainActivity : ComponentActivity() {
                                     UserRole.WAITER -> navController.navigate(NavRoutes.WaiterInterface.route)
                                     UserRole.KITCHEN -> navController.navigate(NavRoutes.KitchenDisplay.route)
                                     UserRole.DOORMAN -> navController.navigate(NavRoutes.DoormanEntry.route)
+                                    UserRole.CASHIER -> navController.navigate(NavRoutes.CashierDashboard.route)
                                 }
                             })
                         }
@@ -52,6 +54,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(NavRoutes.DoormanEntry.route) {
                             com.example.arenaysol.ui.screens.doorman.DoormanScreen()
+                        }
+                        composable(NavRoutes.CashierDashboard.route) {
+                            CashierScreen()
                         }
                     }
                 }

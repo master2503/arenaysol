@@ -27,5 +27,6 @@ enum class OrderStatus {
     PREPARING,
     READY,
     DELIVERED,
+    PAID,
     CANCELLED
 }

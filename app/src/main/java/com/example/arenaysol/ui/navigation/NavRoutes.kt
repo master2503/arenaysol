@@ -6,4 +6,5 @@ sealed class NavRoutes(val route: String) {
     object WaiterInterface : NavRoutes("waiter_interface")
     object KitchenDisplay : NavRoutes("kitchen_display")
     object DoormanEntry : NavRoutes("doorman_entry")
+    object CashierDashboard : NavRoutes("cashier_dashboard")
 }

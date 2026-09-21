@@ -51,6 +51,13 @@ class KtorClient @Inject constructor() {
         }
     }
 
+    suspend fun updateOrderStatus(orderId: String, status: String) {
+        client?.post("$baseUrl/orders/status") {
+            setBody(mapOf("orderId" to orderId, "status" to status))
+            header("Content-Type", "application/json")
+        }
+    }
+
     fun observeUpdates(host: String, port: Int = 8080): Flow<String> = flow {
         client?.webSocket(host = host, port = port, path = "/updates") {
             for (frame in incoming) {
